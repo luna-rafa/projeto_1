@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+
+    <title>Fomulário Faesa</title>
+</head>
+<body>
+    <div class="content">
+        <h1>Formulário</h1>
+        <form id="form">
+            <div>
+                <input type="text" placeholder="Digite seu nome" class="inputs required" oninput="nameValidate()">
+                <span class=" span-required">Preenchimento obrigatório (Conter min.3 caracteres)</span>
+            </div>
+            <div>
+                <input type="email" placeholder="Digite seu email" class="inputs required" oninput = "emailValidate()">
+                <span class=" span-required">Preenchimento obrigatório com email válido</span>
+            </div>
+            <div>
+                <input type="text" name="telefone" id="telefone" placeholder="Digite seu telefone" class="inputs required" maxlength="15" oninput="telValidate()">
+                <span class=" span-required">Preenchimento obrigatório de telefone com DDD</span>
+            </div>
+            <textarea class= "inputs" name="mensagem" id="mensagem" cols="25" rows="10" placeholder="Como podemos te ajudar?"  minlength="10" maxlength="100" oninput="mensValidate()"></textarea>
+            
+            <p>Setor:</p>
+            <div class="box-select">
+                <div>
+                    <input type="radio" id="f" value="f" name="setor">
+                    <label for="f">Financeiro</label>
+                </div>
+                <div>
+                    <input type="radio" id="s" value="s" name="setor">
+                    <label for="s">Secretaria</label>
+                </div>
+                <div>
+                    <input type="radio" id="o" value="o" name="setor">
+                     <label for="o">Outros</label>
+                 </div>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+<script>
+/Variaveis Constantes/
+const form   = document.getElementById('form');
+const campos = document.querySelectorAll('.required');
+const spans  = document.querySelectorAll('.span-required');
+const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+/função de erro para validação de dados/
+function setError(index){
+    campos[index].style.border = '3px solid #e63636';
+    spans[index].style.display = 'block';
+}
+/função de remover o erro quando as informações forem colocadas corretamente/    
+function removeError(index){
+    campos[index].style.border = '';
+    spans[index].style.display = 'none';
+}
+
+/aplicando a função de erro nos blocos/
+function nameValidate(){
+    if(campos [0].value.length < 3)
+    {
+        setError(0);
+    }
+    else
+    {
+        removeError(0);
+    }
+} 
+/dando vida a um email valido e validando o mesmo/
+function emailValidate(){
+    if(!emailRegex.test(campos[1].value))
+    {
+        setError(1);
+    }
+    else
+    {
+        removeError(1);
+    }
+}
+/dando via ao telefone e validando/
+function telValidate(){
+    if(campos[2].value.length < 15)
+    {
+        setError(2);
+    }
+    else
+    {
+        removeError(2);
+    }
+}
+
+function mascara(o,f){
+    v_obj=o
+    v_fun=f
+    setTimeout("execmascara()",1)
+}
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value)
+}
+function mtel(v){
+    v=v.replace(/\D/g,""); //Remove tudo o que não é dígito
+    v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+    v=v.replace(/(\d)(\d{4})$/,"$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+    return v;
+}
+function id( el ){
+	return document.getElementById( el );
+}
+window.onload = function(){
+	id('telefone').onkeyup = function(){
+		mascara( this, mtel );
+	}
+    
+}
+function mensValidate(){
+    if(campos [4].value.length < 10)
+    {
+        setError(4);
+    }
+    else
+    {
+        removeError(4);
+    }
+}
+</script>
+</html>
