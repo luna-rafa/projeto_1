@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    
+        
 
     <title>Fomulário Faesa</title>
 </head>
@@ -14,14 +14,17 @@
         <h1>Formulário</h1>
         <form id="form">
             <div>
+                <label for="nome">Nome Completo</label>
                 <input type="text" placeholder="Digite seu nome" class="inputs required" oninput="nameValidate()">
                 <span class=" span-required">Preenchimento obrigatório (Conter min.3 caracteres)</span>
             </div>
             <div>
+                <label for="email">E-mail</label>
                 <input type="email" placeholder="Digite seu email" class="inputs required" oninput = "emailValidate()">
                 <span class=" span-required">Preenchimento obrigatório com email válido</span>
             </div>
             <div>
+                <label for="telefone">Telefone</label>
                 <input type="text" name="telefone" id="telefone" placeholder="Digite seu telefone" class="inputs required" maxlength="15" oninput="telValidate()">
                 <span class=" span-required">Preenchimento obrigatório de telefone com DDD</span>
             </div>
@@ -46,25 +49,26 @@
         </form>
     </div>
 </body>
+
 <script>
-/Variaveis Constantes/
+    //Variaveis Constantes
 const form   = document.getElementById('form');
 const campos = document.querySelectorAll('.required');
 const spans  = document.querySelectorAll('.span-required');
 const emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-/função de erro para validação de dados/
+//função de erro para validação de dados
 function setError(index){
     campos[index].style.border = '3px solid #e63636';
     spans[index].style.display = 'block';
 }
-/função de remover o erro quando as informações forem colocadas corretamente/    
+//função de remover o erro quando as informações forem colocadas corretamente
 function removeError(index){
     campos[index].style.border = '';
     spans[index].style.display = 'none';
 }
 
-/aplicando a função de erro nos blocos/
+//aplicando a função de erro nos blocos
 function nameValidate(){
     if(campos [0].value.length < 3)
     {
@@ -75,7 +79,7 @@ function nameValidate(){
         removeError(0);
     }
 } 
-/dando vida a um email valido e validando o mesmo/
+//dando vida a um email valido e validando o mesmo
 function emailValidate(){
     if(!emailRegex.test(campos[1].value))
     {
@@ -86,7 +90,7 @@ function emailValidate(){
         removeError(1);
     }
 }
-/dando via ao telefone e validando/
+//dando vida ao telefone e validando
 function telValidate(){
     if(campos[2].value.length < 15)
     {
@@ -131,5 +135,6 @@ function mensValidate(){
         removeError(4);
     }
 }
+
 </script>
 </html>
